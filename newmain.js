@@ -1,27 +1,28 @@
 class Loot {
-    constructor(name, rating, type) {
+    constructor(name, rating, type, background) {
         this.name = name;
         this.rating = rating;
         this.type = type;
+        this.background = background;
     }
 }
 
 function getLoot() {
     const loot = [
-        new Loot("waxing gibbous", 0, "axe"),
-        new Loot("windforce", 0, "bow"),
-        new Loot("asheara's khanjar", 0, "dagger"),
-        new Loot("staff of endless rage", 0, "staff"),
-        new Loot("doombringer", 0, "sword"),
-        new Loot("hellhammer", 0, "mace"),
-        new Loot("stinger", 1, "dagger"),
-        new Loot("staff of elemental command", 1, "staff"),
-        new Loot("infernal edge", 1, "sword"),
-        new Loot("mace of blazing furor", 1, "mace"),
-        new Loot("butcher's cleaver", 2, "axe"),
-        new Loot("skyhunter", 2, "bow"),
-        new Loot("godfather", 2, "sword"),
-        new Loot("black river", 2, "mace")
+        new Loot("waxing gibbous", 0, "axe",'img/waxxingGib.png'),
+        new Loot("windforce", 0, "bow",'img/windforce.png'),
+        new Loot("asheara's khanjar", 0, "dagger",'img/asheeara.png'),
+        new Loot("staff of endless rage", 0, "staff",'img/staffOfEmental.png'),
+        new Loot("doombringer", 0, "sword", 'img/doombringer.png'),
+        new Loot("hellhammer", 0, "mace", 'img/Hellhammer.png'),
+        new Loot("stinger", 1, "dagger", 'img/stinger.png'),
+        new Loot("staff of elemental command", 1, "staff",'img/staffOfEmental.png'),
+        new Loot("infernal edge", 1, "sword", 'img/infernal.png'),
+        new Loot("mace of blazing furor", 1, "mace", 'img/maceOfBalzing.png'),
+        new Loot("butcher's cleaver", 2, "axe", 'img/butcher.png'),
+        new Loot("skyhunter", 2, "bow", 'img/skyhunter.png'),
+        new Loot("godfather", 2, "sword", 'img/godfahter.png'),
+        new Loot("black river", 2, "mace", 'img/blackRiver.png'),
     ];
     return loot;
 }
@@ -37,21 +38,22 @@ function startButtonClick(items) {
         if (event.target.id === 'pullOne') {
             item = rollitem(items);
             lootItems.push(item);
-            checkdblItems(item, saveItems); 
+            checkdblItems(item, saveItems);
         } else if (event.target.id === 'pullTen') {
             for (let i = 0; i < 10; i++) {
                 item = rollitem(items);
                 lootItems.push(item);
-                checkdblItems(item, saveItems); 
+                checkdblItems(item, saveItems);
+            }
         }
-    }
         localStorage.setItem("saveItems", JSON.stringify(saveItems));
         console.log(lootItems, 'loot');
-        console.log(saveItems,'save');
+        console.log(saveItems, 'save');
         createDiv(lootItems);
-
+        displaySavedItems(); 
     })
 }
+
 
 function checkdblItems(item, saveItems) {
     let AlreadyExists = false;
@@ -61,7 +63,7 @@ function checkdblItems(item, saveItems) {
         if (savedItem.name === item.name) {
             saveItems[i] = item;
             AlreadyExists = true;
-            break; 
+            break;
         }
     }
 
@@ -77,36 +79,32 @@ function getRandNum() {
 }
 
 function getRandIndex(items) {
-    let num = Math.floor(Math.random() * items.length);
-    return num;
+    return Math.floor(Math.random() * items.length);
 }
 
-let pullsWithoutHighestRarity = 0; 
+
+let pullsWithoutHighestRarity = 0;
 
 
 function rollitem(items) {
     let itemList = [];
     const randomNum = getRandNum();
-    console.log(randomNum,'rdnNum');
+    console.log(randomNum, 'rdnNum');
     let randomInd = getRandIndex(items);
-    console.log(randomInd,'rdnIndex');
+    console.log(randomInd, 'rdnIndex');
     let item = "";
     let highRateItem = false;
 
 
     if (randomNum < 0.01) {
-        itemList = items.filter(loot => loot.rating === 2);
-        console.log(itemList,'higlist');
-        item = items[randomInd];
+        const itemList = items.filter(loot => loot.rating === 2);
+        item = itemList[getRandIndex(itemList)];
     } else if (randomNum < 0.08) {
-        itemList = items.filter(loot => loot.rating === 1);
-        console.log(itemList,'midlist');
-        item = items[randomInd];
+        const itemList = items.filter(loot => loot.rating === 1);
+        item = itemList[getRandIndex(itemList)];
     } else {
-        itemList = items.filter(loot => loot.rating === 0);
-        console.log(itemList,'lowlist');
-
-        item = items[randomInd];
+        const itemList = items.filter(loot => loot.rating === 0);
+        item = itemList[getRandIndex(itemList)];
     }
 
     itemList.forEach(element => {
@@ -124,9 +122,9 @@ function rollitem(items) {
     if (pullsWithoutHighestRarity >= 90) {
         itemList = items.filter(lo => lo.rating === 2);
         item = itemList[getRandIndex(itemList)];
-        pullsWithoutHighestRarity = 0; 
+        pullsWithoutHighestRarity = 0;
     }
-    console.log(pullsWithoutHighestRarity,'highcount');
+    console.log(pullsWithoutHighestRarity, 'highcount');
 
 
     return item;
@@ -139,6 +137,11 @@ function createDiv(items) {
     items.forEach(element => {
         const div = document.createElement("div");
         parent.appendChild(div);
+        div.style.backgroundImage = 'url(' + element.background + ')';
+        div.style.backgroundSize = 'cover';
+        div.style.borderRadius = '1em';
+        div.classList.add('glow'); 
+        div.style.backdropFilter = 'blur (10px);';
         const ue2 = document.createElement("h2");
         ue2.classList.add("item_h");
         ue2.innerText = element.name;
@@ -175,11 +178,11 @@ function count() {
         button.addEventListener('click', (event) => {
             if (event.target.id === 'pullOne') {
                 clickCount++;
-            
+
             } else if (event.target.id === 'pullTen') {
                 clickCount = clickCount + 10;
             }
-            
+
             console.log('Click count:', clickCount);
             document.querySelector('#countDisplay').innerHTML = 'count : ' + clickCount;
 
@@ -187,7 +190,7 @@ function count() {
         });
     });
 
-    
+
 
 }
 
@@ -199,22 +202,56 @@ function reset() {
         console.log('reset');
         clickCount = 0;
         localStorage.clear();
-        const parent = document.getElementById('obtain');
-        parent.innerHTML = ""
+        const parentObtain = document.getElementById('obtain');
+        parentObtain.innerHTML = "";
+        const parentSavedItems = document.getElementById('savedItems');
+        parentSavedItems.innerHTML = "";
 
-        document.querySelector('#countDisplay').innerHTML = 'count : ' + 0;;
+        document.querySelector('#countDisplay').innerHTML = 'count : ' + 0;
     })
-
 }
 
+
+function displaySavedItems() {
+    const savedItems = JSON.parse(localStorage.getItem("saveItems")) || [];
+    const parent = document.getElementById('savedItems');
+    parent.innerHTML = "";
+
+    savedItems.forEach(element => {
+        const div = document.createElement("div");
+        parent.appendChild(div);
+        div.style.backgroundImage = 'url(' + element.background + ')';
+
+        const ue2 = document.createElement("h2");
+        ue2.classList.add("item_name");
+        ue2.innerText = element.name;
+        div.appendChild(ue2);
+        const type = document.createElement("p");
+        type.classList.add('item_type');
+        type.innerText = element.type;
+        div.appendChild(type);
+        const rating = document.createElement('p');
+        rating.classList.add('item_rare');
+        if (element.rating === 0) {
+            div.classList.add('common');
+        } else if (element.rating === 1) {
+            div.classList.add('rare');
+        } else {
+            div.classList.add('low');
+        }
+        div.appendChild(rating);
+    });
+}
 
 
 
 function init() {
     const items = getLoot();
+    displaySavedItems();
     startButtonClick(items);
     count();
     reset();
+    
 
 }
 
