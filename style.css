@@ -11,6 +11,7 @@
     --clr-4: #ffffff;
     --clr-5: #333;
     --clr-6: #c2a420;
+    --clr-7: #37eb37;
 
 }
 
@@ -46,7 +47,7 @@ body {
     justify-content: center;
 }
 
-h1 {
+.s {
     font-size: 36px;
     font-weight: bold;
     background-color: #03e9f4;
@@ -61,12 +62,7 @@ h1 {
 #countDisplay {
     font-size: 23pt;
     text-align: center;
-    background-color: #03e9f4;
     color: #050801;
-    box-shadow: 0 0 5px #03e9f4,
-        0 0 25px #03e9f4,
-        0 0 50px #03e9f4,
-        0 0 200px #03e9f4;
 }
 
 .btns {
@@ -79,15 +75,15 @@ h1 {
 
 
 .btn {
-    width: 10em;
-    height: 10em;
-    margin: 3em 5em;
-    font-size: 16px;
+    width: 150px;
+    height: 150px;
+    margin: 0 90px ;
+    font-size: 40px;
+    color: var(--clr-1);
+    filter: sepia(1);
     font-weight: bold;
     text-align: center;
     text-decoration: none;
-    color: #ffffff;
-    background-color: var(--clr-3);
     border-radius: 0.5rem;
     border: none;
     cursor: pointer;
@@ -95,76 +91,15 @@ h1 {
     transition: 0.5s;
     
 }
+
 .btn:hover {
     transform: scale3d(1.2, 1.2, 1.2);
     background-color: var(--clr-3);
     border-radius: 0.5rem;
-    box-shadow: 10px 2px 2px var(--clr-3),
-        0 0 25px var(--clr-3),
-        0 0 50px var(--clr-3),
-        0 0 200px var(--clr-3);
-}
-.btns {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 1em 0 1em 0;
-
+    filter: none;
+   
 }
 
-
-.btn {
-    width: 10em;
-    height: 10em;
-    margin: 3em 5em;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    color: #ffffff;
-    background-color: var(--clr-3);
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transform: skew(-5deg);
-    transition: 0.5s;
-    
-}
-.btn:hover {
-    transform: scale3d(1.2, 1.2, 1.2);
-    background-color: var(--clr-3);
-    border-radius: 0.5rem;
-    box-shadow: 10px 2px 2px var(--clr-3),
-        0 0 25px var(--clr-3),
-        0 0 50px var(--clr-3),
-        0 0 200px var(--clr-3);
-}
-.btns {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 1em 0 1em 0;
-
-}
-
-
-.btn {
-    color: #a5a79a;
-    border: none;
-    cursor: pointer;
-    transform: skew(-5deg);
-    transition: 0.5s;
-    
-}
-.btn:hover {
-    transform: scale3d(1.2, 1.2, 1.2);
-    background-color: var(--clr-3);
-    border-radius: 0.5rem;
-    box-shadow: 10px 2px 2px var(--clr-3),
-        0 0 25px var(--clr-3),
-        0 0 50px var(--clr-3),
-        0 0 200px var(--clr-3);
-}
 #pullOne {
     background-image: url('/img/btn/btnOne.png');
     background-size: cover;
@@ -188,18 +123,22 @@ h1 {
     font-weight: bold;
     text-align: center;
     text-decoration: none;
-    color: #ffffff;
     background-color: var(--clr-6);
     border-radius: 0.5rem;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    transform: scale3d(1.3, 1.3, 1.3);
-    background-color: var(--clr-6);
     color: #050801;
     margin: 2em;
+    transition: 0.5s;
 
-    box-shadow: 0 0 5px var(--clr-6),
+    
+}
+
+#resetBtn:hover {
+    transform: scale3d(1.2, 1.2, 1.2);
+    background-color: var(--clr-6);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 2px var(--clr-6),
         0 0 25px var(--clr-6),
         0 0 50px var(--clr-6),
         0 0 200px var(--clr-6);
