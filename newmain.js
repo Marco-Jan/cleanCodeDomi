@@ -1,9 +1,10 @@
 class Loot {
-    constructor(name, rating, type, background) {
+    constructor(name, rating, type, background, quantity) {
         this.name = name;
         this.rating = rating;
         this.type = type;
         this.background = background;
+        this.quantity = quantity || 1; 
     }
 }
 
@@ -61,7 +62,7 @@ function checkdblItems(item, saveItems) {
     for (let i = 0; i < saveItems.length; i++) {
         const savedItem = saveItems[i];
         if (savedItem.name === item.name) {
-            saveItems[i] = item;
+            saveItems[i].quantity += 1; 
             AlreadyExists = true;
             break;
         }
@@ -71,7 +72,6 @@ function checkdblItems(item, saveItems) {
         saveItems.push(item);
     }
 }
-
 
 
 function getRandNum() {
@@ -221,15 +221,24 @@ function displaySavedItems() {
         const div = document.createElement("div");
         parent.appendChild(div);
         div.style.backgroundImage = 'url(' + element.background + ')';
+        div.style.backgroundSize = 'cover';
+        // div.style.filter = 'blur(1px)';
 
         const ue2 = document.createElement("h2");
         ue2.classList.add("item_name");
         ue2.innerText = element.name;
         div.appendChild(ue2);
+
         const type = document.createElement("p");
         type.classList.add('item_type');
         type.innerText = element.type;
         div.appendChild(type);
+
+        const quantity = document.createElement('p');
+        quantity.classList.add('item_quantity');
+        quantity.innerText = 'Quantity: ' + element.quantity;
+        div.appendChild(quantity);
+
         const rating = document.createElement('p');
         rating.classList.add('item_rare');
         if (element.rating === 0) {
